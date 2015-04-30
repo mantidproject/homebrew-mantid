@@ -1,6 +1,6 @@
 require "formula"
 
-class Oce < Formula
+class Oce0p16p1 < Formula
   homepage "https://github.com/tpaviot/oce"
   url "https://github.com/tpaviot/oce/archive/OCE-0.16.1.tar.gz"
   sha256 "d31030c8da4a1b33f767d0d59895a995c8eabc8fc65cbe0558734f6021ea2f57"
