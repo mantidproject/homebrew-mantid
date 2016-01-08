@@ -68,7 +68,7 @@ class Opencascade7 < Formula
 
     # add symlinks to be able to compile against OpenCascade
     loc = OS.mac? ? "#{prefix}/mac64/clang" : "#{prefix}/lin64/gcc"
-    include.install_symlink Dir["#{prefix}/inc/opencascade-7.0.0.beta/*"]
+    include.install_symlink Dir["#{prefix}/include/opencascade-7.0.0.beta/*"]
     bin.install_symlink Dir["#{loc}/bin/*"]
     lib.install_symlink Dir["#{loc}/lib/*"]
   end
