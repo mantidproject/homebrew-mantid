@@ -194,7 +194,7 @@ class Llvm38omp < Formula
       -DLLVM_OPTIMIZED_TABLEGEN=On
     ]
 
-    args << "-DC_INCLUDE_DIRS=#{MacOS.sdk_path}/usr/include:#{MacOS::Xcode.toolchain_path}/usr/include/c++/v1/"
+    args << "-DC_INCLUDE_DIRS=/usr/include:/../../../../../Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
 
     args << "-DLLVM_ENABLE_RTTI=On" if build.with? "rtti"
 
