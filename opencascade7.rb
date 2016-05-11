@@ -1,15 +1,23 @@
-class Opencascade7 < Formula
-  desc "Environment for 3D modeling and development of numerical simulation software including CAD/CAM/CAE"
+class Opencascade < Formula
+  desc "3D modeling and numerical simulation software for CAD/CAM/CAE"
   homepage "http://www.opencascade.org/"
-  url "https://github.com/mantidproject/homebrew-mantid/raw/master/kits/opencascade-7.0.0-beta.tgz"
-  sha256 "134e0065168e7dfe50368e5db05bacc9d302ac2bb17a077ab0b1f6d0d3dae2d9"
+  url "https://sources.archlinux.org/other/community/opencascade/opencascade-7.0.0.tgz"
+  sha256 "073445b37b62d005a64744ba601f36ec118a25913dee4e6419f30dc9594a90dc"
+
+  bottle do
+    cellar :any
+    sha256 "cee345bc42279a0bf61e3c24e111127c55a89be6d3479c96ec6e2672321ddabe" => :el_capitan
+    sha256 "d558fa645071e5459e6db4694ece37d03e35fb0f2e7d1baa19470168cfbde705" => :yosemite
+    sha256 "3e32b4563fe163822172e69d4daaad14d5c820b2a33e453b829339058944063f" => :mavericks
+  end
 
   conflicts_with "oce", :because => "OCE is a fork for patches/improvements/experiments over OpenCascade"
   conflicts_with "opencascade", :because => "formula is a fork of opencascade"
 
   option "without-opencl", "Build without OpenCL support" if OS.mac?
   option "without-extras", "Don't install documentation (~725MB) or samples (~40MB)"
-  option "with-tests", "Install tests (~55MB)"
+  option "with-test", "Install tests (~55MB)"
+  deprecated_option "with-tests" => "with-test"
 
   depends_on "cmake" => :build
   depends_on "freetype"
@@ -19,15 +27,14 @@ class Opencascade7 < Formula
   depends_on "tbb" => :recommended if OS.mac? # Couldn't make it find TBB...
   depends_on :macos => :snow_leopard
 
-  def install    # recent xcode stores it's sdk in the application folder
+  def install
+    # recent xcode stores it's sdk in the application folder
     sdk_path = Pathname.new `xcrun --show-sdk-path`.strip
 
     # setting DYLD causes many issues; all tests work fine without; suppress
     inreplace "env.sh", "export DYLD_LIBRARY_PATH", "export OCCT_DYLD_LIBRARY_PATH" if OS.mac?
 
     cmake_args = std_cmake_args
-    cmake_args = cmake_args.map { |s| s.gsub(/RELEASE/, "DEBUG") }.map { |s| s.gsub(/Release/, "Debug") }
-    cmake_args << "-DBUILD_CONFIGURATION=Debug"
     cmake_args << "-DCMAKE_PREFIX_PATH:PATH=#{HOMEBREW_PREFIX}"
     cmake_args << "-DCMAKE_INCLUDE_PATH:PATH=#{HOMEBREW_PREFIX}/lib"
     cmake_args << "-DCMAKE_FRAMEWORK_PATH:PATH=#{HOMEBREW_PREFIX}/Frameworks" if OS.mac?
@@ -63,13 +70,13 @@ class Opencascade7 < Formula
     system "make", "install"
 
     if build.with? "extras"
-      prefix.install "doc", "samples"
+      prefix.install "doc", "samples", "src"
     end
 
     # add symlinks to be able to compile against OpenCascade
     loc = OS.mac? ? "#{prefix}/mac64/clang" : "#{prefix}/lin64/gcc"
-    include.install_symlink Dir["#{prefix}/include/opencascade-7.0.0.beta/*"]
     bin.install_symlink Dir["#{loc}/bin/*"]
+    include.install_symlink Dir["#{include}/opencascade-7.0.0/*"]
     lib.install_symlink Dir["#{loc}/lib/*"]
   end
 
