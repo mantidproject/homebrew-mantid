@@ -1,4 +1,4 @@
-class Opencascade < Formula
+class Opencascade7 < Formula
   desc "3D modeling and numerical simulation software for CAD/CAM/CAE"
   homepage "http://www.opencascade.org/"
   url "https://sources.archlinux.org/other/community/opencascade/opencascade-7.0.0.tgz"
