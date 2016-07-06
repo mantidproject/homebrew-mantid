@@ -8,25 +8,21 @@ class H5py < Formula
   depends_on "hdf5"
 
   resource "cython" do
-    url "http://cython.org/release/Cython-0.24.tar.gz"
-    sha256 ""
+    url "https://pypi.python.org/packages/b1/51/bd5ef7dff3ae02a2c6047aa18d3d06df2fb8a40b00e938e7ea2f75544cac/Cython-0.24.tar.gz"
+    sha256 "6de44d8c482128efc12334641347a9c3e5098d807dd3c69e867fa8f84ec2a3f1"
   end
 
   def install
+    ENV.prepend_create_path "PYTHONPATH", buildpath+"lib/python2.7/site-packages"
+    resource("cython").stage do
+      system "python", "setup.py", "build", "install", "--prefix=#{buildpath}"
+    end
+
     system "python", "setup.py", "configure", "--hdf5=#{Formula["homebrew/science/hdf5"].opt_prefix}", "build"
     system "python", *Language::Python.setup_install_args(prefix)
   end
 
   test do
-    # `test do` will create, run in and delete a temporary directory.
-    #
-    # This test will fail and we won't accept that! It's enough to just replace
-    # "false" with the main program this formula installs, but it'd be nice if you
-    # were more thorough. Run the test with `brew test h5py`. Options passed
-    # to `brew install` such as `--HEAD` also need to be provided to `brew test`.
-    #
-    # The installed folder is not in the path, so use the entire path to any
-    # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
+    system "python -c \"import h5py; print(h5py.__version__)\""
   end
 end
