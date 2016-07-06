@@ -13,7 +13,7 @@ class H5py < Formula
   end
 
   def install
-    system "python", "setup.py", "configure", "--hdf5=#{Formula["homebrew/science/hdf5"].opt_prefix}","build"
+    system "python", "setup.py", "configure", "--hdf5=#{Formula["homebrew/science/hdf5"].opt_prefix}", "build"
     system "python", *Language::Python.setup_install_args(prefix)
   end
 
