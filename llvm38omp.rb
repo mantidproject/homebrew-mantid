@@ -194,7 +194,16 @@ class Llvm38omp < Formula
       -DLLVM_OPTIMIZED_TABLEGEN=On
     ]
 
-    args << "-DC_INCLUDE_DIRS=/usr/include:/../../../../../Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
+    # include libc++ headers so that the test below passes.
+    # For some reason I need to provide a relative path for
+    # el capitan and an absolute path for yosemite.
+    if build.with? "clang"
+      if MacOS.version < :el_capitan
+        args << "-DC_INCLUDE_DIRS=#{MacOS.sdk_path}/usr/include:#{MacOS::Xcode.toolchain_path}/usr/include/c++/v1/"
+      else
+        args << "-DC_INCLUDE_DIRS=/usr/include:/../../../../../Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
+      end
+    end
 
     args << "-DLLVM_ENABLE_RTTI=On" if build.with? "rtti"
 
