@@ -32,32 +32,32 @@ class MantidDeveloper < Formula
 
 	resource "pip" do 
 		url 'https://pypi.python.org/packages/source/p/pip/pip-6.0.6.tar.gz'
-		md5 'bbb17814bdf82187f46aaf9cec6b6caa'
+		sha256 ""
 	end
 
 	resource "sphinx" do
 		url 'https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.3b2.tar.gz'
-		md5 '7ea36c45e795fd49185f8d4c075f6b62'
+		sha256 ""
 	end
 
 	resource "ipython" do 
 		url 'https://pypi.python.org/packages/source/i/ipython/ipython-1.1.0.tar.gz'
-		md5 '70d69c78122923879232567ac3c47cef'
-	end
+                sha256 ""
+        end
 
 	resource "pygments" do 
 		url 'https://pypi.python.org/packages/source/P/Pygments/Pygments-2.0.2.tar.gz'
-		md5 '238587a1370d62405edabd0794b3ec4a'
+                sha256 ""
 	end
 
 	resource "pyzmq" do 
 		url 'https://pypi.python.org/packages/source/p/pyzmq/pyzmq-14.5.0.tar.gz'
-		md5 '8d3351a8ca2ca2a272a3f96bcb963e41'
+                sha256 ""
 	end
 
 	resource "sphinx_bootstrap_theme" do 
 		url 'https://pypi.python.org/packages/source/s/sphinx-bootstrap-theme/sphinx-bootstrap-theme-0.4.5.tar.gz'
-		md5 '06ca1cb93aa7372e02815d43419b269c'
+                sha256 ""
 	end
 
 	def install 
