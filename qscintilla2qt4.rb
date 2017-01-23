@@ -11,9 +11,9 @@ class Qscintilla2qt4 < Formula
   depends_on :python3 => :optional
 
   if build.with? "python3"
-    depends_on "pyqt" => "with-python3"
+    depends_on "cartr/qt4/pyqt" => "with-python3"
   elsif build.with? "python"
-    depends_on "pyqt"
+    depends_on "cartr/qt4/pyqt"
   else
     depends_on "qt"
   end
