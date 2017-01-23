@@ -5,7 +5,7 @@ class Qwt5 < Formula
   url 'https://downloads.sourceforge.net/project/qwt/qwt/5.2.3/qwt-5.2.3.tar.bz2'
   sha256 '37feaf306753230b0d8538b4ff9b255c6fddaa3d6609ec5a5cc39a5a4d020ab7'
 
-  depends_on 'qt'
+  depends_on 'cartr/qt4/qt'
 
   def install
     inreplace 'qwtconfig.pri' do |s|
