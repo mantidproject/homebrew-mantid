@@ -6,7 +6,7 @@ class Qwtplot3d < Formula
   sha256 "8ed5f5cc9d5db2ca195e41280dbe8d2c971ca12253a0c02368fb37c491e5952b"
 
   depends_on :x11
-  depends_on 'qt'
+  depends_on 'cartr/qt4/qt'
 
   def install
     
