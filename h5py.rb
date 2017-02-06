@@ -23,7 +23,7 @@ class H5py < Formula
   end
 
   if build.with? :python3
-    depends_on "homebrew/python/numpy" => ["with-python3"]
+    depends_on "numpy" => ["with-python3"]
   end
 
   resource "cython" do
