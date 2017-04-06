@@ -4,9 +4,10 @@ class Qwtplot3d < Formula
   homepage "http://qwtplot3d.sourceforge.net"
   url "https://github.com/mantidproject/homebrew-mantid/raw/master/kits/qwtplot3d-0.2.7.tgz"
   sha256 "8ed5f5cc9d5db2ca195e41280dbe8d2c971ca12253a0c02368fb37c491e5952b"
+  revision 1
 
   depends_on :x11
-  depends_on 'cartr/qt4/qt'
+  depends_on 'cartr/qt4/qt@4'
 
   def install
     

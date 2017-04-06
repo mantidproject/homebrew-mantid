@@ -3,6 +3,7 @@ class Qscintilla2qt4 < Formula
   homepage "https://www.riverbankcomputing.com/software/qscintilla/intro"
   url "https://downloads.sf.net/project/pyqt/QScintilla2/QScintilla-2.9.3/QScintilla_gpl-2.9.3.tar.gz"
   sha256 "98aab93d73b05635867c2fc757acb383b5856a0b416e3fd7659f1879996ddb7e"
+  revision 1
 
   option "without-plugin", "Skip building the Qt Designer plugin"
   option "without-python", "Skip building the Python bindings"
@@ -11,11 +12,11 @@ class Qscintilla2qt4 < Formula
   depends_on :python3 => :optional
 
   if build.with? "python3"
-    depends_on "cartr/qt4/pyqt" => "with-python3"
+    depends_on "cartr/qt4/pyqt@4" => "with-python3"
   elsif build.with? "python"
-    depends_on "cartr/qt4/pyqt"
+    depends_on "cartr/qt4/pyqt@4"
   else
-    depends_on "qt"
+    depends_on "cartr/qt4/qt@4"
   end
 
   conflicts_with "qscintilla2", :because => "same package but built against PyQt5 and Qt5"	
