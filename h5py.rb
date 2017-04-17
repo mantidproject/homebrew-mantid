@@ -1,16 +1,8 @@
 class H5py < Formula
   desc "Pythonic interface to the HDF5 binary data format"
   homepage "http://www.h5py.org"
-  url "https://pypi.python.org/packages/source/h/h5py/h5py-2.6.0.tar.gz"
-  sha256 "b2afc35430d5e4c3435c996e4f4ea2aba1ea5610e2d2f46c9cae9f785e33c435"
-  revision 1
-
-  bottle do
-    cellar :any
-    sha256 "f25c247a55cfeecc39cfda56550319f801e5c4e5f65dd1c54025bc7d0a8fc03d" => :el_capitan
-    sha256 "203b77e213415c6399fc4138960e27634ce3797c1fd4ee077a94d334a65af904" => :yosemite
-    sha256 "c211368c1a6e6e423acea875686d3c02701abbbc5a4cd657a14705bf034663dc" => :mavericks
-  end
+  url "https://pypi.python.org/packages/11/6b/32cee6f59e7a03ab7c60bb250caff63e2d20c33ebca47cf8c28f6a2d085c/h5py-2.7.0.tar.gz"
+  sha256 "79254312df2e6154c4928f5e3b22f7a2847b6e5ffb05ddc33e37b16e76d36310"
 
   option "without-python", "Build without python2 support"
   depends_on :python => :recommended if MacOS.version <= :snow_leopard
