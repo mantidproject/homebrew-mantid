@@ -8,7 +8,7 @@ class H5py < Formula
   depends_on :python => :recommended if MacOS.version <= :snow_leopard
   depends_on :python3 => :optional
   depends_on :mpi => :optional
-  depends_on "homebrew/science/hdf5" => (build.with?("mpi") ? "with-mpi" : [])
+  depends_on "hdf5" => (build.with?("mpi") ? "with-mpi" : [])
 
   if build.with? :mpi
     depends_on "mpi4py" => ["with-python3"] if build.with? :python3
@@ -45,7 +45,7 @@ class H5py < Formula
 
       args = Language::Python.setup_install_args(prefix)
       args << "configure"
-      args << "--hdf5=#{Formula["homebrew/science/hdf5"].opt_prefix}"
+      args << "--hdf5=#{Formula["hdf5"].opt_prefix}"
       args << "--mpi" if build.with? :mpi
 
       ENV.prepend_create_path "PYTHONPATH", lib/"python#{version}/site-packages"
