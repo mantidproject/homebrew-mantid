@@ -5,9 +5,9 @@ class H5py < Formula
   sha256 "180a688311e826ff6ae6d3bda9b5c292b90b28787525ddfcb10a29d5ddcae2cc"
 
   option "without-python", "Build without python2 support"
-  depends_on :python => :recommended if MacOS.version <= :snow_leopard
-  depends_on :python3 => :optional
-  depends_on :mpi => :optional
+  depends_on "python" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python3" => :optional
+  depends_on "open-mpi" => :optional
   depends_on "hdf5" => (build.with?("mpi") ? "with-mpi" : [])
 
   if build.with? :mpi

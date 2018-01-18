@@ -7,8 +7,8 @@ class Qscintilla2qt4 < Formula
   option "without-plugin", "Skip building the Qt Designer plugin"
   option "without-python", "Skip building the Python bindings"
 
-  depends_on :python => :recommended
-  depends_on :python3 => :optional
+  depends_on "python" => :recommended
+  depends_on "python3" => :optional
 
   if build.with? "python3"
     depends_on "cartr/qt4/pyqt@4" => "with-python3"
