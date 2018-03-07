@@ -6,7 +6,7 @@ class H5py < Formula
 
   depends_on "python@2" => :recommended if MacOS.version <= :snow_leopard
   depends_on "python" => :optional
-  depends_on "hdf5" => (build.with?("mpi") ? "with-mpi" : [])
+  depends_on "hdf5"
 
   resource "cython" do
     url "https://pypi.python.org/packages/c6/fe/97319581905de40f1be7015a0ea1bd336a756f6249914b148a17eefa75dc/Cython-0.24.1.tar.gz"
