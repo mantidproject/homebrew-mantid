@@ -4,19 +4,9 @@ class H5py < Formula
   url "https://pypi.python.org/packages/41/7a/6048de44c62fc5e618178ef9888850c3773a9e4be249e5e673ebce0402ff/h5py-2.7.1.tar.gz"
   sha256 "180a688311e826ff6ae6d3bda9b5c292b90b28787525ddfcb10a29d5ddcae2cc"
 
-  option "without-python", "Build without python2 support"
-  depends_on "python" => :recommended if MacOS.version <= :snow_leopard
-  depends_on "python3" => :optional
-  depends_on "open-mpi" => :optional
+  depends_on "python@2" => :recommended if MacOS.version <= :snow_leopard
+  depends_on "python" => :optional
   depends_on "hdf5" => (build.with?("mpi") ? "with-mpi" : [])
-
-  if build.with? :mpi
-    depends_on "mpi4py" => ["with-python3"] if build.with? :python3
-  end
-
-  if build.with? :python3
-    depends_on "numpy" => ["with-python3"]
-  end
 
   resource "cython" do
     url "https://pypi.python.org/packages/c6/fe/97319581905de40f1be7015a0ea1bd336a756f6249914b148a17eefa75dc/Cython-0.24.1.tar.gz"
