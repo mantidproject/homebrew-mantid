@@ -36,7 +36,6 @@ class H5py < Formula
       args = Language::Python.setup_install_args(prefix)
       args << "configure"
       args << "--hdf5=#{Formula["hdf5"].opt_prefix}"
-      args << "--mpi" if build.with? :mpi
 
       ENV.prepend_create_path "PYTHONPATH", lib/"python#{version}/site-packages"
       system python, *args
