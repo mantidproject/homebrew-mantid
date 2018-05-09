@@ -1,8 +1,8 @@
 class Qscintilla2qt4 < Formula
   desc "Port to Qt of the Scintilla editing component"
   homepage "https://www.riverbankcomputing.com/software/qscintilla/intro"
-  url "https://downloads.sourceforge.net/project/pyqt/QScintilla2/QScintilla-2.10.1/QScintilla_gpl-2.10.1.tar.gz"
-  sha256 "97f98a9d91f908db6ce37fecc6d241d955b388a1c487173b60726cba9a3dfa64"
+  url "https://downloads.sourceforge.net/project/pyqt/QScintilla2/QScintilla-2.10.4/QScintilla_gpl-2.10.4.tar.gz"
+  sha256 ""
 
   option "without-plugin", "Skip building the Qt Designer plugin"
   option "without-python", "Skip building the Python bindings"
@@ -17,8 +17,6 @@ class Qscintilla2qt4 < Formula
   else
     depends_on "cartr/qt4/qt@4"
   end
-
-  conflicts_with "qscintilla2", :because => "same package but built against PyQt5 and Qt5"	
 
   def install
     # On Mavericks we want to target libc++, this requires an
