@@ -3,9 +3,6 @@ class Nexusformat < Formula
   homepage "http://www.nexusformat.org"
   url "https://github.com/nexusformat/code/archive/v4.4.3.tar.gz"
   sha256 "e78a116feb2ebd04de31a8d8707c65e8e15a64aa8999a40fea305e3909bd6533"
-  revision 6
-
-  option :cxx11
 
   deprecated_option "hdf@4" => "hdf4"
 
@@ -18,7 +15,6 @@ class Nexusformat < Formula
   depends_on "doxygen" => :optional
 
   def install
-    ENV.cxx11 if build.cxx11?
     cmake_args = std_cmake_args
     cmake_args << "-DENABLE_APPS=TRUE"
     cmake_args << "-DENABLE_CXX=TRUE"
