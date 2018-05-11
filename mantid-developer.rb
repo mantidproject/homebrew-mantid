@@ -12,6 +12,7 @@ class MantidDeveloper < Formula
   depends_on "cmake"
   depends_on "ninja"
   depends_on "sip"
+  depends_on "pkg-config"
   depends_on "pyqt@4"
   depends_on "qscintilla2qt4"
   depends_on "poco"
@@ -234,6 +235,8 @@ class MantidDeveloper < Formula
     # that the formula points to, because buildpath is the location where the
     # formula's tarball was unpacked.
     # venv.pip_install_and_link buildpath
+    bundle_path = libexec/"lib/python3.6/site-packages"
+    (lib/"python3.6/site-packages/homebrew-mantid-developer-bundle.pth").write "#{bundle_path}\n"
     prefix.install("pyport.patch")
   end
 end
