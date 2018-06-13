@@ -24,7 +24,6 @@ class MantidDev < Formula
   depends_on "sip"
   depends_on "qscintilla2qt4"
   depends_on "qscintilla2"
-  depends_on "oce"
   depends_on "poco"
   depends_on "boost"
   depends_on "boost-python"
