@@ -49,7 +49,13 @@ class MantidDev < Formula
   depends_on "librdkafka"
   depends_on "eigen"
   
-	
-	def install
+  resource "pycrypto" do
+    url "https://files.pythonhosted.org/packages/60/db/645aa9af249f059cc3a368b118de33889219e0362141e75d4eaf6f80f163/pycrypto-2.6.1.tar.gz"
+    sha256 "f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"
   end
+
+  def install
+    resource("pycrypto").stage { system "python", *Language::Python.pip_install_args(libexec/"vendor") }
+  end
+	
 end
