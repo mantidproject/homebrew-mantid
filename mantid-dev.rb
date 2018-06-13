@@ -17,7 +17,8 @@ class MantidDev < Formula
   end
 
   def install
-    resource("pycrypto").stage { system "python", *Language::Python.pip_install_args(libexec/"vendor") }
+    resource("pycrypto").stage { system "python", *Language::Python.pip_install(libexec/"vendor") }
+    #prefix.install("pyport.patch")	  
   end
 	
 end
