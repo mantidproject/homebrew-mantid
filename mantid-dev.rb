@@ -16,7 +16,10 @@ class MantidDev < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec,"python")
+    venv.pip_install resources
+    bundle_path = libexec/"lib/python2.7/site-packages"
+    (lib/"python2.7/site-packages/homebrew-mantid-developer-bundle.pth").write "#{bundle_path}\n"
     #prefix.install("pyport.patch")	  
   end
 	
