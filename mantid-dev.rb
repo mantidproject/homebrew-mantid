@@ -28,7 +28,6 @@ class MantidDev < Formula
   depends_on "boost"
   depends_on "boost-python"
   depends_on "boost-mpi"
-  depends_on "mactex"
   depends_on "openssl"
   depends_on "opencascade" 
   depends_on "open-mpi"
