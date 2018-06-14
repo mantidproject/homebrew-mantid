@@ -2,7 +2,7 @@
 require 'formula'
 
 class MantidDev < Formula
-  include Language::Python::Virtualenv	
+  # include Language::Python::Virtualenv	
   # get the pyport.patch file as we need it later and just because we have to have one
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
@@ -10,17 +10,40 @@ class MantidDev < Formula
   version '1.1'
   sha256 "e9f83c057e70082c48f5576d3e7d0d257f55f1835ce659239c64445bb01da551"
   
-  resource "pycrypto" do
-    url "https://files.pythonhosted.org/packages/60/db/645aa9af249f059cc3a368b118de33889219e0362141e75d4eaf6f80f163/pycrypto-2.6.1.tar.gz"
-    sha256 "f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"
-  end
+  depends_on "boost"
+  depends_on "boost-python"
+  depends_on "boost-mpi"
+  depends_on "ccache"
+  depends_on "clang-format"
+  depends_on "cppcheck"
+  depends_on "doxygen"
+  depends_on "eigen"
+  depends_on "google-perftools"
+  depends_on "graphviz"
+  depends_on "gsl"
+  depends_on "hdf5"
+  depends_on "h5py"
+  depends_on "jsoncpp"
+  depends_on "libmxml"
+  depends_on "librdkafka"
+  depends_on "muparser"
+  depends_on "nexusformat"
+  depends_on "opencascade" 
+  depends_on "openssl"
+  depends_on "poco"
+  depends_on "qt@4"
+  depends_on "qt"
+  depends_on "qscintilla2qt4"
+  depends_on "qscintilla2"
+  depends_on "qwt5"
+  depends_on "qwtplot3d"
+  depends_on "pyqt@4"
+  depends_on "pyqt"
+  depends_on "sip"
+  depends_on "tbb"
 
   def install
-    venv = virtualenv_create(libexec,"python")
-    venv.pip_install resources
-    bundle_path = libexec/"lib/python2.7/site-packages"
-    (lib/"python2.7/site-packages/homebrew-mantid-developer-bundle.pth").write "#{bundle_path}\n"
-    #prefix.install("pyport.patch")	  
+      
   end
 	
 end
