@@ -34,7 +34,7 @@ class MantidDev < Formula
   depends_on "qscintilla2qt4" => '--without-python'
   depends_on "qwt5"
   depends_on "qwtplot3d"
-  depends_on "pyqt@4"
+  depends_on "pyqt@4" => '--without-python'
   depends_on "sip" => '--without-python'
   depends_on "tbb" => '--c++11'
 
