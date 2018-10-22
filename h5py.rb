@@ -1,20 +1,22 @@
 class H5py < Formula
   desc "Pythonic interface to the HDF5 binary data format"
   homepage "http://www.h5py.org"
-  url "https://pypi.python.org/packages/41/7a/6048de44c62fc5e618178ef9888850c3773a9e4be249e5e673ebce0402ff/h5py-2.7.1.tar.gz"
-  sha256 "180a688311e826ff6ae6d3bda9b5c292b90b28787525ddfcb10a29d5ddcae2cc"
+  url "https://files.pythonhosted.org/packages/74/5d/6f11a5fffc3d8884bb8d6c06abbee0b3d7c8c81bde9819979208ba823a47/h5py-2.8.0.tar.gz"
+  sha256 "e626c65a8587921ebc7fb8d31a49addfdd0b9a9aa96315ea484c09803337b955"
 
+  depends_on "hdf5"
+  depends_on "numpy"
+  depends_on "pkg-config"
   depends_on "python@2" => :recommended
   depends_on "python" => :recommended
-  depends_on "hdf5"
 
   resource "cython" do
-    url "https://pypi.python.org/packages/fa/86/0c8311bcba3b3f0944c135db95312e057a353058f522692e4dcf6d4bb978/Cython-0.28.tar.gz"
-    sha256 "518f7e22da54109661e483a91a63045203caf9fd78da4a69185a7622f759965f"
+    url "https://files.pythonhosted.org/packages/f0/66/6309291b19b498b672817bd237caec787d1b18013ee659f17b1ec5844887/Cython-0.29.tar.gz"
+    sha256 "94916d1ede67682638d3cc0feb10648ff14dc51fb7a7f147f4fedce78eaaea97"
   end
 
   resource "six" do
-    url "https://pypi.python.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz#md5=d12789f9baf7e9fb2524c0c64f1773f8"
+    url "https://pypi.python.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"
     sha256 "70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9"
   end
 
