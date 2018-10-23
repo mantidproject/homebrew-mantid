@@ -2,7 +2,7 @@
 require 'formula'
 
 class MantidDev < Formula
-  # include Language::Python::Virtualenv	
+  include Language::Python::Virtualenv	
   # get the pyport.patch file as we need it later and just because we have to have one
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
@@ -38,8 +38,14 @@ class MantidDev < Formula
   depends_on "sip" => '--without-python'
   depends_on "tbb" => '--c++11'
 
+  resource "numpy" do
+    url "https://files.pythonhosted.org/packages/d5/6e/f00492653d0fdf6497a181a1c1d46bbea5a2383e7faf4c8ca6d6f3d2581d/numpy-1.14.5.zip"
+    sha256 "a4a433b3a264dbc9aa9c7c241e87c0358a503ea6394f8737df1683c7c9a102ac"
+  end
+	
   def install
-      
+    virtualenv_install_with_resources
+    prefix.install("pyport.patch")
   end
 	
 end
