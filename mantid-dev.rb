@@ -43,9 +43,14 @@ class MantidDev < Formula
     sha256 "a4a433b3a264dbc9aa9c7c241e87c0358a503ea6394f8737df1683c7c9a102ac"
   end
 	
+  resource "matplotlib" do
+    url "https://files.pythonhosted.org/packages/ec/ed/46b835da53b7ed05bd4c6cae293f13ec26e877d2e490a53a709915a9dcb7/matplotlib-2.2.2.tar.gz"
+    sha256 "4dc7ef528aad21f22be85e95725234c5178c0f938e2228ca76640e5e84d8cde8"
+  end
+	
   def install
     virtualenv_install_with_resources
-    prefix.install("pyport.patch")
+    # prefix.install("pyport.patch")
   end
 	
 end
