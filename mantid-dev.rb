@@ -10,9 +10,11 @@ class MantidDev < Formula
   version '1.1'
   sha256 "e9f83c057e70082c48f5576d3e7d0d257f55f1835ce659239c64445bb01da551"
   
-  depends_on "boost-python" => '--c++11'
+  depends_on "boost"
+  depends_on "boost-python"
   depends_on "boost-mpi"
   depends_on "ccache"
+  depends_on "cmake"
   depends_on "clang-format"
   depends_on "cppcheck"
   depends_on "doxygen"
@@ -28,7 +30,8 @@ class MantidDev < Formula
   depends_on "muparser"
   depends_on "nexusformat" => '--c++11'
   depends_on "ninja" => '--without-test'
-  depends_on "opencascade" 
+  depends_on "opencascade"
+  depends_on "openssl" 
   depends_on "poco"
   depends_on "qt@4"
   depends_on "qscintilla2qt4" => '--without-python'
@@ -37,11 +40,8 @@ class MantidDev < Formula
   depends_on "pyqt@4" => '--without-python'
   depends_on "sip" => '--without-python'
   depends_on "tbb" => '--c++11'
-
-  resource "numpy" do
-    url "https://files.pythonhosted.org/packages/d5/6e/f00492653d0fdf6497a181a1c1d46bbea5a2383e7faf4c8ca6d6f3d2581d/numpy-1.14.5.zip"
-    sha256 "a4a433b3a264dbc9aa9c7c241e87c0358a503ea6394f8737df1683c7c9a102ac"
-  end
+  depends_on "numpy"
+  depends_on "scipy" 
 	
   resource "matplotlib" do
     url "https://files.pythonhosted.org/packages/ec/ed/46b835da53b7ed05bd4c6cae293f13ec26e877d2e490a53a709915a9dcb7/matplotlib-2.2.2.tar.gz"
