@@ -56,6 +56,5 @@ class MantidDev < Formula
     #virtualenv_install_with_resources
     resource("matplotlib").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
   end
-  end
 	
 end
