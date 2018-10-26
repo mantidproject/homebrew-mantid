@@ -52,7 +52,7 @@ class MantidDev < Formula
   end
 	
   def install
-    #prefix.install("pyport.patch")
+    prefix.install("pyport.patch")
     #virtualenv_install_with_resources
     #resource("matplotlib").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
   end
