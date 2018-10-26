@@ -2,7 +2,7 @@
 require 'formula'
 
 class MantidDev < Formula
-  include Language::Python::Virtualenv	
+  #include Language::Python::Virtualenv	
   # get the pyport.patch file as we need it later and just because we have to have one
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
@@ -53,7 +53,9 @@ class MantidDev < Formula
 	
   def install
     #prefix.install("pyport.patch")
-    virtualenv_install_with_resources
+    #virtualenv_install_with_resources
+    resource("matplotlib").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
+  end
   end
 	
 end
