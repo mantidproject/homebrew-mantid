@@ -52,10 +52,10 @@ class MantidDev < Formula
   end
 	
   def install
-    virtualenv_install_with_resources
-    # prefix.install("pyport.patch")
+    #prefix.install("pyport.patch")
     system "brew uninstall --ignore-dependencies python@2"
-    system "brew uninstall --ignore-dependencies python"	
+    system "brew uninstall --ignore-dependencies python"
+    virtualenv_install_with_resources
   end
 	
 end
