@@ -41,7 +41,10 @@ class MantidDev < Formula
   depends_on "sip" => '--without-python'
   depends_on "tbb" => '--c++11'
   depends_on "numpy"
-  depends_on "scipy" 
+  depends_on "scipy"
+  depends_on "qt"
+  depends_on "qscintilla2"
+  depends_on "pyqt"
 	
   resource "matplotlib" do
     url "https://files.pythonhosted.org/packages/ec/ed/46b835da53b7ed05bd4c6cae293f13ec26e877d2e490a53a709915a9dcb7/matplotlib-2.2.2.tar.gz"
