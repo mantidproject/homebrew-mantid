@@ -1,0 +1,15 @@
+h5py
+ipython[notebook]
+matplotlib
+pycifrw
+PyYAML
+qtconsole
+qtpy
+mock
+numpy
+psutil
+requests
+scipy
+six
+sphinx
+sphinx_bootstrap_theme
