@@ -4,7 +4,7 @@ class MantidDeveloper < Formula
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
   homepage "http://developer.mantidproject.org/BuildingOnOSX.html"
-  version '1.2'
+  version '1.3'
   sha256 "e9f83c057e70082c48f5576d3e7d0d257f55f1835ce659239c64445bb01da551"
 
   # framework dependencies
@@ -17,6 +17,7 @@ class MantidDeveloper < Formula
   depends_on "poco"
   depends_on "boost"
   depends_on "boost-python"
+  depends_on "boost-python3"
   depends_on "gsl"
   depends_on "hdf5" => "build-from-source"
   depends_on "libmxml"
