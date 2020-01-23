@@ -33,8 +33,8 @@ class MantidDeveloper < Formula
   # qt-related
   depends_on "qt@4"
   depends_on "qt"
-  depends_on "pyqt@4" => "with-python"
-  depends_on "pyqt" => "with-python"
+  depends_on "mantid-pyqt@4"
+  depends_on "mantid-pyqt5"
   depends_on "qscintilla2qt4"
   depends_on "qscintilla2"
   depends_on "qwt5"
