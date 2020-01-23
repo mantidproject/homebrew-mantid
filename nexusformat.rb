@@ -7,18 +7,18 @@ class Nexusformat < Formula
   deprecated_option "hdf@4" => "hdf4"
 
   depends_on "cmake" => :build
-  depends_on "libmxml"
   cxx11dep = build.cxx11? ? ["c++11"] : []
   depends_on "hdf5" => cxx11dep
   depends_on "readline" => :recommended
   depends_on "hdf4" => :recommended
+  depends_on "libmxml" => :optional
   depends_on "doxygen" => :optional
 
   def install
     cmake_args = std_cmake_args
     cmake_args << "-DENABLE_APPS=TRUE"
     cmake_args << "-DENABLE_CXX=TRUE"
-    cmake_args << "-DENABLE_MXML=TRUE"
+    cmake_args << "-DENABLE_MXML=FALSE" if build.with? "libmxml"
     cmake_args << "-DENABLE_HDF4=TRUE" if build.with? "hdf4"
     system "cmake", ".", *cmake_args
     system "make"
