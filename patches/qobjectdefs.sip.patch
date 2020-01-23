@@ -1,0 +1,14 @@
+diff --git a/sip/QtCore/qobjectdefs.sip b/sip/QtCore/qobjectdefs.sip
+index 16ce158..2e90758 100644
+--- a/sip/QtCore/qobjectdefs.sip
++++ b/sip/QtCore/qobjectdefs.sip
+@@ -59,6 +59,9 @@ static void qtcore_invokeMethod_exception()
+     static void connectSlotsByName(QObject *o /GetWrapper/);
+ %MethodCode
+         qpycore_qmetaobject_connectslotsbyname(a0, a0Wrapper);
++        
++        // Make sure there is no (benign) Python exception.
++        PyErr_Clear();
+ %End
+ 
+     static QByteArray normalizedSignature(const char *method);
