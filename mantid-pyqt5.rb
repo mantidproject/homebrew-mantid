@@ -8,6 +8,8 @@ class MantidPyqt5 < Formula
   sha256 "9932e971e825ece4ea08f84ad95017837fa8f3f29c6b0496985fa1093661e9ef"
   revision 1
 
+  conflicts_with 'pyqt', :because => 'both install PyQt4. This formula contains a patch for Python 3.7. Please remove pyqt5.'
+
   depends_on "python"
   depends_on "python@2"
   depends_on "qt"
