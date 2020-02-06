@@ -8,7 +8,6 @@ class MantidPyqtAT4 < Formula
   conflicts_with 'pyqt@4', :because => 'both install PyQt4. This formula contains a patch for Python 3.7. Please remove pyqt@4.'
 
   depends_on "python"
-  depends_on "python@2"
   depends_on "qt"
   depends_on "sip"
   depends_on "cartr/qt4/qt@4"
@@ -19,6 +18,11 @@ class MantidPyqtAT4 < Formula
     url "https://raw.githubusercontent.com/mantidproject/homebrew-mantid/ba8ea158e63e20ba879f92f6bd685f7cc54f4aab/patches/qobjectdefs.sip.patch"
     sha256 "0f0eb5e07064be5470a316cdcd070b08108638affaf3ea5916433003baaffb9b"
   end
+
+  patch do
+    url "https://raw.githubusercontent.com/mantidproject/homebrew-mantid/6a012843ad1c3b4bf711a8ff76597d8e9d47a2a4/patches/configure-ng.py.patch"
+    sha256 "08a2ff869fe884e49c0c3d3e9865b8ccef27e16dbce37f16db878b860e73e814"
+  end
   
   def install
     # On Mavericks we want to target libc++, this requires a non default qt makespec
@@ -26,7 +30,7 @@ class MantidPyqtAT4 < Formula
       ENV.append "QMAKESPEC", "unsupported/macx-clang-libc++"
     end
 
-    ["python2", "python3"].each do |python|
+    ["python3"].each do |python|
       version = Language::Python.major_minor_version python
       ENV.append_path "PYTHONPATH", "#{Formula["sip"].opt_lib}/python#{version}/site-packages"
 
