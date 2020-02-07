@@ -1,14 +1,13 @@
 class MantidPyqtAT4 < Formula
   desc "Python bindings for Qt"
   homepage "https://www.riverbankcomputing.com/software/pyqt/intro"
-  url "https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.1/PyQt4_gpl_mac-4.12.1.tar.gz/download"
-  sha256 "3224ab2c4d392891eb0abbc2bf076fef2ead3a5bb36ceae2383df4dda00ccce5"
+  url "https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.3/PyQt4_gpl_mac-4.12.3.tar.gz/download"
+  sha256 "293e4be7dd741db72b1265e062ea14332ba5532741314f64eb935d141570305f"
   revision 1
 
   conflicts_with 'pyqt@4', :because => 'both install PyQt4. This formula contains a patch for Python 3.7. Please remove pyqt@4.'
 
   depends_on "python"
-  depends_on "qt"
   depends_on "sip"
   depends_on "cartr/qt4/qt@4"
   depends_on "cartr/qt4/qt-webkit@2.3" => :recommended
@@ -20,8 +19,8 @@ class MantidPyqtAT4 < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/mantidproject/homebrew-mantid/6a012843ad1c3b4bf711a8ff76597d8e9d47a2a4/patches/configure-ng.py.patch"
-    sha256 "08a2ff869fe884e49c0c3d3e9865b8ccef27e16dbce37f16db878b860e73e814"
+    url "https://raw.githubusercontent.com/mantidproject/homebrew-mantid/7caaae55bd332c5ef4cf55cf5f2e7a73d7917016/patches/configure-ng.py.patch"
+    sha256 "04c1f43058154fd96534aa82994a01d99ee163bc28daae8eaa623e3beae5b8bf"
   end
   
   def install
@@ -32,7 +31,8 @@ class MantidPyqtAT4 < Formula
 
     ["python3"].each do |python|
       version = Language::Python.major_minor_version python
-      ENV.append_path "PYTHONPATH", "#{Formula["sip"].opt_lib}/python#{version}/site-packages"
+      sip_site_packages = "#{Formula["sip"].opt_lib}/python#{version}/site-packages"
+      ENV.append_path "PYTHONPATH", sip_site_packages
 
       args = %W[
         --confirm-license
@@ -40,30 +40,29 @@ class MantidPyqtAT4 < Formula
         --destdir=#{lib}/python#{version}/site-packages
         --sipdir=#{share}/sip
         --qmake=#{Formula["qt@4"].bin}/qmake
+        --no-designer-plugin
+        --no-qsci-api
       ]
 
-      # We need to run "configure.py" so that pyqtconfig.py is generated, which
-      # is needed by QGIS, PyQWT (and many other PyQt interoperable
-      # implementations such as the ROS GUI libs). This file is currently needed
-      # for generating build files appropriate for the qmake spec that was used
-      # to build Qt. The alternatives provided by configure-ng.py is not
-      # sufficient to replace pyqtconfig.py yet (see
-      # https://github.com/qgis/QGIS/pull/1508). Using configure.py is
-      # deprecated and will be removed with SIP v5, so we do the actual compile
-      # using the newer configure-ng.py as recommended. In order not to
-      # interfere with the build using configure-ng.py, we run configure.py in a
-      # temporary directory and only retain the pyqtconfig.py from that.
-
+      # sip at HEAD from homebrew-core is now built for PyQt5 only. Build a private copy here
+      # using the same version but just copy in the sip.so to PyQt4
       require "tmpdir"
       dir = Dir.mktmpdir
       begin
-        cp_r(Dir.glob("*"), dir)
-        cd dir do
-          system python, "configure.py", *args
-          inreplace "pyqtconfig.py", "#{HOMEBREW_CELLAR}/#{Formula["cartr/qt4/qt@4"].name}/#{Formula["cartr/qt4/qt@4"].pkg_version}",
-            Formula["cartr/qt4/qt@4"].opt_prefix
-          (lib/"python#{version}/site-packages/PyQt4").install "pyqtconfig.py"
-        end
+        # this will need to be updated when the sip Forumla in homebrew-core gets updated
+        system "curl", "https://www.riverbankcomputing.com/static/Downloads/sip/4.19.20/sip-4.19.20.tar.gz", "-o", "sip.tar.gz"
+        system "tar", "--strip-components=1", "-x", "-z", "-f", "sip.tar.gz"
+        system python, "configure.py",
+                      "--deployment-target=#{MacOS.version}",
+                      "--destdir=#{lib}/python#{version}/site-packages",
+                      "--bindir=#{bin}",
+                      "--incdir=#{include}",
+                      "--sipdir=#{HOMEBREW_PREFIX}/share/sip",
+                      "--sip-module", "PyQt4.sip"
+        system "make"
+        # system "make", "install"
+        system "mkdir", "-p", "#{lib}/python#{version}/site-packages/PyQt4"
+        system "install", "siplib/sip.so", "#{lib}/python#{version}/site-packages/PyQt4"
       ensure
         remove_entry_secure dir
       end
@@ -78,7 +77,6 @@ class MantidPyqtAT4 < Formula
       system python, "configure-ng.py", *args
       system "make"
       system "make", "install"
-      system "make", "clean" # for when building against multiple Pythons
     end
   end
 
