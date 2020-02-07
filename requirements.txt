@@ -13,3 +13,4 @@ scipy
 six
 sphinx==1.6.7
 sphinx_bootstrap_theme
+toml
