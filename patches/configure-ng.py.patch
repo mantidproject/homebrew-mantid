@@ -1,13 +1,13 @@
 diff --git a/configure-ng.py b/configure-ng.py
-index f60ae58..86db0a6 100644
+index 089255c..efb874a 100644
 --- a/configure-ng.py
 +++ b/configure-ng.py
 @@ -2217,7 +2217,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
      mk_clean_dir(mname)
  
      # Build the SIP command line.
--    argv = [quote(target_config.sip), '-w', '-f', sip_flags]
-+    argv = [quote(target_config.sip), '-w', sip_flags]
+-    argv = [quote(target_config.sip), '-w', '-n', 'PyQt4.sip', '-f', sip_flags]
++    argv = [quote(target_config.sip), '-w', '-n', 'PyQt4.sip', sip_flags]
  
      # Make sure any unknown Qt version gets treated as the latest Qt v4.
      argv.append('-B')
