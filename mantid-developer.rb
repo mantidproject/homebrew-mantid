@@ -18,6 +18,7 @@ class MantidDeveloper < Formula
   depends_on "boost-python"
   depends_on "gsl"
   depends_on "hdf5" => "build-from-source"
+  depends_on "libomp"
   depends_on "muparser"
   depends_on "nexusformat" => "hdf4"
   depends_on "jsoncpp"
