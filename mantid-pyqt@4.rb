@@ -3,12 +3,11 @@ class MantidPyqtAT4 < Formula
   homepage "https://www.riverbankcomputing.com/software/pyqt/intro"
   url "https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.12.3/PyQt4_gpl_mac-4.12.3.tar.gz/download"
   sha256 "293e4be7dd741db72b1265e062ea14332ba5532741314f64eb935d141570305f"
-  revision 1
+  revision 2
 
-  conflicts_with 'pyqt@4', :because => 'both install PyQt4. This formula contains a patch for Python 3.7. Please remove pyqt@4.'
+  conflicts_with 'pyqt@4', :because => 'both install PyQt4. This formula contains a patch for Python 3.7+. Please remove pyqt@4.'
 
-  depends_on "python"
-  depends_on "sip"
+  depends_on "python@3.8"
   depends_on "cartr/qt4/qt@4"
   depends_on "cartr/qt4/qt-webkit@2.3" => :recommended
 
@@ -24,6 +23,7 @@ class MantidPyqtAT4 < Formula
   end
   
   def install
+    ENV.prepend_path "PATH", Formula["python@3.8"].opt_bin
     # On Mavericks we want to target libc++, this requires a non default qt makespec
     if ENV.compiler == :clang && MacOS.version >= :mavericks
       ENV.append "QMAKESPEC", "unsupported/macx-clang-libc++"
@@ -46,9 +46,12 @@ class MantidPyqtAT4 < Formula
 
       # sip at HEAD from homebrew-core is now built for PyQt5 only. Build a private copy here
       # using the same version but just copy in the sip.so to PyQt4
+      require "pathname"
       require "tmpdir"
-      dir = Dir.mktmpdir
+      pyqt_build_dir = Pathname.getwd
+      sip_build_dir = Dir.mktmpdir
       begin
+        Dir.chdir(sip_build_dir)
         # this will need to be updated when the sip Forumla in homebrew-core gets updated
         system "curl", "https://www.riverbankcomputing.com/static/Downloads/sip/4.19.20/sip-4.19.20.tar.gz", "-o", "sip.tar.gz"
         system "tar", "--strip-components=1", "-x", "-z", "-f", "sip.tar.gz"
@@ -60,23 +63,23 @@ class MantidPyqtAT4 < Formula
                       "--sipdir=#{HOMEBREW_PREFIX}/share/sip",
                       "--sip-module", "PyQt4.sip"
         system "make"
-        # system "make", "install"
         system "mkdir", "-p", "#{lib}/python#{version}/site-packages/PyQt4"
         system "install", "siplib/sip.so", "#{lib}/python#{version}/site-packages/PyQt4"
+
+        Dir.chdir(pyqt_build_dir)
+        # On Mavericks we want to target libc++, this requires a non default qt makespec
+        if ENV.compiler == :clang && MacOS.version >= :mavericks
+          args << "--spec" << "unsupported/macx-clang-libc++"
+        end
+
+        args << "--no-stubs" << "--sip=#{sip_build_dir}/sipgen/sip"
+        
+        system python, "configure-ng.py", *args
+        system "make"
+        system "make", "install"
       ensure
-        remove_entry_secure dir
+        remove_entry_secure sip_build_dir
       end
-
-      # On Mavericks we want to target libc++, this requires a non default qt makespec
-      if ENV.compiler == :clang && MacOS.version >= :mavericks
-        args << "--spec" << "unsupported/macx-clang-libc++"
-      end
-
-      args << "--no-stubs"
-
-      system python, "configure-ng.py", *args
-      system "make"
-      system "make", "install"
     end
   end
 

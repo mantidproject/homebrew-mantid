@@ -11,7 +11,7 @@ class MantidDeveloper < Formula
   depends_on "cmake"
   depends_on "openssl"
   depends_on "ninja"
-  depends_on "python"
+  depends_on "python@3.8"
   depends_on "pkg-config"
   depends_on "poco"
   depends_on "boost"
