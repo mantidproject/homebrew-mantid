@@ -7,17 +7,16 @@ class Qscintilla2qt4 < Formula
   option "without-plugin", "Skip building the Qt Designer plugin"
   option "without-python", "Skip building the Python bindings"
 
-  depends_on "python" => :recommended
-  depends_on "python3" => :optional
+  keg_only "it conflicts with qscintilla2"
+  
+  depends_on "python@3.8" => :optional
 
-  if build.with? "python3"
-    depends_on "cartr/qt4/pyqt@4" => "with-python3"
-  elsif build.with? "python"
-    depends_on "cartr/qt4/pyqt@4"
+  if build.with? "python@3.8"
+    depends_on "mantidproject/mantid/mantid-pyqt@4"
   else
     depends_on "cartr/qt4/qt@4"
   end
-
+  
   def install
     # On Mavericks we want to target libc++, this requires an
     # unsupported/macx-clang-libc++ flag.
@@ -49,21 +48,26 @@ class Qscintilla2qt4 < Formula
     # Add qscintilla2 features search path, since it is not installed in Qt keg's mkspecs/features/
     ENV["QMAKEFEATURES"] = prefix/"data/mkspecs/features"
 
-    if build.with?("python") || build.with?("python3")
+    if build.with?("python@3.8")
       cd "Python" do
-        Language::Python.each_python(build) do |python, version|
           (share/"sip").mkpath
-          system python, "configure.py", "-o", lib, "-n", include,
-                           "--apidir=#{prefix}/qsci",
-                           "--destdir=#{lib}/python#{version}/site-packages/PyQt4",
-                           "--stubsdir=#{lib}/python#{version}/site-packages/PyQt4",
-                           "--qsci-sipdir=#{share}/sip",
-                           "--pyqt-sipdir=#{HOMEBREW_PREFIX}/share/sip",
-                           "--spec=#{spec}"
+          version = Language::Python.major_minor_version Formula["python@3.8"].opt_bin/"python3"
+          pydir = "#{lib}/python#{version}/site-packages/PyQt4"
+          system Formula["python@3.8"].opt_bin/"python3", "configure.py", "-o", lib, "-n", include,
+                        "--apidir=#{prefix}/qsci",
+                        "--destdir=#{pydir}",
+                        "--stubsdir=#{pydir}",
+                        "--qsci-sipdir=#{share}/sip",
+                        "--qsci-incdir=#{include}",
+                        "--qsci-libdir=#{lib}",
+                        "--pyqt=PyQt4",
+                        "--pyqt-sipdir=#{Formula["pyqt"].opt_share}/sip/Qt4",
+                        "--sip-incdir=#{Formula["sip"].opt_include}",
+                        "--spec=#{spec}",
+                        "--no-dist-info"
           system "make"
           system "make", "install"
           system "make", "clean"
-        end
       end
     end
 
