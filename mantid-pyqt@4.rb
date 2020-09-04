@@ -53,7 +53,7 @@ class MantidPyqtAT4 < Formula
       begin
         Dir.chdir(sip_build_dir)
         # this will need to be updated when the sip Forumla in homebrew-core gets updated
-        system "curl", "https://www.riverbankcomputing.com/static/Downloads/sip/4.19.20/sip-4.19.20.tar.gz", "-o", "sip.tar.gz"
+        system "curl", "https://sourceforge.net/projects/pyqt/files/sip/sip-4.19.2/sip-4.19.2.tar.gz/download", "-o", "sip.tar.gz"
         system "tar", "--strip-components=1", "-x", "-z", "-f", "sip.tar.gz"
         system python, "configure.py",
                       "--deployment-target=#{MacOS.version}",
