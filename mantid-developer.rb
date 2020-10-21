@@ -4,7 +4,7 @@ class MantidDeveloper < Formula
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
   homepage "http://developer.mantidproject.org/BuildingOnOSX.html"
-  version '1.6'
+  version '1.7'
   sha256 "e9f83c057e70082c48f5576d3e7d0d257f55f1835ce659239c64445bb01da551"
 
   # framework dependencies
@@ -27,6 +27,7 @@ class MantidDeveloper < Formula
   depends_on "librdkafka"
   depends_on "clang-format"
   depends_on "ccache"
+  depends_on "graphviz"
   
   # qt5
   depends_on "qt"
