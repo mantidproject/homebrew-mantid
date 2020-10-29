@@ -9,7 +9,7 @@ mock
 numpy
 psutil
 requests
-scipy
+scipy==1.4.1 # Fix scipy version due to https://github.com/scipy/scipy/issues/11403
 six
 sphinx==1.6.7
 sphinx_bootstrap_theme
