@@ -2,10 +2,10 @@ class MantidDeveloper < Formula
   include Language::Python::Virtualenv
   # get the pyport.patch file as we need it later and just because we have to have one
   # this is really a metapackage only
-  url 'https://raw.githubusercontent.com/mantidproject/mantid/master/buildconfig/pyport.patch' #:using => :curl
+  url 'https://raw.githubusercontent.com/mantidproject/homebrew-mantid/master/osx_brew_marker.conf' #:using => :curl
   homepage "http://developer.mantidproject.org/BuildingOnOSX.html"
   version '1.9'
-  sha256 "e9f83c057e70082c48f5576d3e7d0d257f55f1835ce659239c64445bb01da551"
+  sha256 "66cdaf5a6c59060d2a2e35f6bfdf527fc814834dc4d0e420b0ec13243958b35f"
 
   # framework dependencies
   depends_on "cmake"
@@ -37,6 +37,6 @@ class MantidDeveloper < Formula
 
   def install
     # install a file so that homebrew thinks something was done
-    prefix.install("pyport.patch")
+    prefix.install("osx_brew_marker.conf")
   end
 end
