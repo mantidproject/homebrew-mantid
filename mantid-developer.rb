@@ -4,7 +4,7 @@ class MantidDeveloper < Formula
   # this is really a metapackage only
   url 'https://raw.githubusercontent.com/mantidproject/homebrew-mantid/master/osx_brew_marker.conf' #:using => :curl
   homepage "http://developer.mantidproject.org/BuildingOnOSX.html"
-  version '1.8'
+  version '1.9'
   sha256 "66cdaf5a6c59060d2a2e35f6bfdf527fc814834dc4d0e420b0ec13243958b35f"
 
   # framework dependencies
@@ -28,6 +28,7 @@ class MantidDeveloper < Formula
   depends_on "clang-format"
   depends_on "ccache"
   depends_on "graphviz"
+  depends_on "pre-commit"
   
   # qt5
   depends_on "qt"
